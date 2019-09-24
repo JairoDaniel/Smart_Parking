@@ -1,13 +1,14 @@
 import React from 'react';
 import { TextInput,Button,Text, View, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
-
+import Constants, { UserInterfaceIdiom } from 'expo-constants';
+import MQTTClient from '../mqtt/clientmqtt';
 
 export default class IngresarScreen extends React.Component {
   
     constructor(props) {
     super(props);
     this.state = {text: ''};
+    clientUser = new MQTTClient();
   }
 
   render() {
@@ -27,11 +28,13 @@ export default class IngresarScreen extends React.Component {
           />
           
       </View>
+      
     );
     }
 
 
   _onPressButton() {
+    clientUser.sendData("11");
     alert('Bienvenido!')
     
   }

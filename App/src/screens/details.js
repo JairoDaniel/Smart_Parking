@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageBackground,Button, View, Text,Dimensions } from 'react-native';
-import Fondo from '../images/fondo.jpg'
+import Fondo from '../../assets/images/fondo.jpg'
 const { width, height } = Dimensions.get('window');
 
 export default class DetailsScreen extends React.Component {

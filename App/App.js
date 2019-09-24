@@ -3,9 +3,9 @@ import { Button, View, Text } from 'react-native';
 import { createAppContainer} from '@react-navigation/native';
 import { createStackNavigator } from 'react-navigation-stack';
  // Version can be specified in package.json
-import HomeScreen from './screens/home-screen'
-import DetailsScreen from './screens/details'
-import IngresarScreen from './screens/ingresar'
+import HomeScreen from './src/screens/home-screen'
+import DetailsScreen from './src/screens/details'
+import IngresarScreen from './src/screens/ingresar'
 
 const RootStack = createStackNavigator(
   {
