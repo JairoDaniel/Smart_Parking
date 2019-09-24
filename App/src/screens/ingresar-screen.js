@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextInput,Button,Text, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
-
+import * as Constantes from '../constants/constants'
 
 export default class IngresarScreen extends React.Component {
   
@@ -22,7 +22,8 @@ export default class IngresarScreen extends React.Component {
           value={this.state.text}
         />
         <Button
-            onPress={this._onPressButton}
+            color='#ffcc00'
+            onPress={() => this._onPressButton(this.state.text)}
             title="Administrar Espacio"
           />
           
@@ -31,9 +32,27 @@ export default class IngresarScreen extends React.Component {
     }
 
 
-  _onPressButton() {
-    alert('Bienvenido!')
+  _onPressButton(passwordText) {
+    if(passwordText == '' | passwordText == ' '){
+      alert('Por favor ingrese una contraseña')
+    }
+    else{
+      let i;
+      for( i = 0; i < Constantes.sizeArrayCode; i++){            
+            if(global.arrayCode[i] == passwordText ){
+              global.spot = i;
+              break;
+            }
+      }
+      if(i <  Constantes.sizeArrayCode){
+        this.props.navigation.navigate('Parquear')
+      }
+      else{
+        alert('Codigo no existente')
+      }    
     
+    }
+
   }
 
 }
@@ -41,9 +60,6 @@ export default class IngresarScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
     padding: 8,
   },
   paragraph: {
@@ -58,5 +74,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     margin: 24,
     textAlign: 'center',
+    backgroundColor: '#ecf0f1',
   },
 });
