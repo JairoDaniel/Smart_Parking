@@ -28,7 +28,10 @@ WiFiClient client;
 Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO_KEY);
 
 //Subscribed topic (object)
-Adafruit_MQTT_Subscribe subGate = Adafruit_MQTT_Subscribe(&mqtt, "bar/parqueo/admin/");
+Adafruit_MQTT_Subscribe subGate = Adafruit_MQTT_Subscribe(&mqtt, "bar/parqueo/admin");
+
+//Publish object
+Adafruit_MQTT_Publish pubMsg = Adafruit_MQTT_Publish(&mqtt, "bar/parqueo/sensor");
 
 //variables needed for the servos and IR sensors
 Servo servoSpot1;
@@ -37,15 +40,16 @@ int spot1 = 13;
 int spot2 = 15;
 int isFreeSpot1 = HIGH;  //HIGH: No object, light off
 int isFreeSpot2 = HIGH;
-
-
+int countStateSpot = 0;
+char msgToSend[4] = " ";
+String preSendMsg = "";
 /**
  * Setup function
  * Define parameters
  */
 void setup() {
-  /*Serial.begin(9600);
-  Serial.println("Ready");*/
+  Serial.begin(9600);
+  Serial.println("Ready");
   //Assign pins for servos
   servoSpot1.attach(12);
   servoSpot2.attach(14);
@@ -67,6 +71,7 @@ void setup() {
 
   //Subscribe topic
   mqtt.subscribe(&subGate);
+  
 
 }
 
@@ -161,15 +166,42 @@ void loop() {
   while ((subscription = mqtt.readSubscription(5000))) {
     if (subscription == &subGate) {
       char * msg = (char *)subGate.lastread;
-      if(*(msg+3) == '0'){
-        openSpot(*(msg+2));
+      if(*(msg+1) == '0'){
+        openSpot(*(msg+0));
       }
-      else if (*(msg+3) == '1'){
-        closeSpot(*(msg+2));        
+      else if (*(msg+1) == '1'){
+        closeSpot(*(msg+0));        
       }
       else
         Serial.println("ERROR: No valid code for gates.");
     }
+  }
+  countStateSpot++;
+  if(countStateSpot == 5){
+    countStateSpot=0;
+    if(digitalRead(spot1) == HIGH){
+      preSendMsg = "01";
+      }
+    else{
+       preSendMsg = "11";
+      
+    }
+    if(digitalRead(spot2) == HIGH){
+      preSendMsg += "01";
+      }
+    else{
+       preSendMsg += "11";
+      
+    }
+    for (int x = 0; x <= 4; x++) {
+      msgToSend[x] = preSendMsg[x];
+      }
+    if (! pubMsg.publish(msgToSend)) {
+      Serial.println(F("Message failed"));
+      }
+    else {
+      Serial.println(F("OK!"));
+      }
   }
 }
 
