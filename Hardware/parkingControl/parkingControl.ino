@@ -56,6 +56,7 @@ void setup() {
   //Type (IN/out) of IR sensor 
   pinMode(spot1, INPUT);
   pinMode(spot2, INPUT);
+  pinMode(16, OUTPUT);
 
   //Initialize serial console
   while (!Serial);
@@ -239,4 +240,20 @@ void MQTT_connect() {
     delay(5000);
   }
   Serial.println("MQTT Connected!");
+  //Turn on-off a led to see when is the mqtt ready.
+  digitalWrite(16, HIGH);  
+  delay(1000);
+  digitalWrite(16, LOW);   
+  delay(1000);
+  digitalWrite(16, HIGH);  
+  delay(1000);
+  digitalWrite(16, LOW); 
+  delay(1000);
+  digitalWrite(16, HIGH);  
+  delay(1000);
+  digitalWrite(16, LOW); 
+  delay(1000);
+  digitalWrite(16, HIGH);  
+  delay(1000);
+  digitalWrite(16, LOW);
 }
