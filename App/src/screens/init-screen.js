@@ -9,9 +9,11 @@ import {
   Image,
   TouchableOpacity,
   TouchableHighlight,
+  ImageBackground,
 } from 'react-native';
 //import all the components we will need
-import Icono from '../../assets/images/iconParking.jpg'
+import Icono from '../../assets/images/imageIcon.png'
+import Fondo from '../../assets/images/fondo9.jpg'
 /*
 Ventana de inicio, para el restaurante inteligente, se utilizó la estructura de código grid
 del sitio web https://aboutreact.com/example-of-gridview-using-flatlist-in-react-native/
@@ -27,7 +29,7 @@ export default class App extends Component {
   }
   componentDidMount() {
     var that = this;
-    let items = Array.apply(null, Array(6)).map((v, i) => {
+    let items = Array.apply(null, Array(1)).map((v, i) => {
       return { id: i, src: 'http://placehold.it/200x200?text=' + (i + 1) };
     });
     that.setState({
@@ -37,22 +39,23 @@ export default class App extends Component {
   }
   render() {
     return (
-        
-      <View style={styles.MainContainer}>
-        <FlatList
-          data={this.state.dataSource}
-          renderItem={({ item }) => (
-            <View style={{ flex: 1 ,flexDirection: 'column', margin: 15, }}>
-            <TouchableHighlight onPress={item.id==1 ? () => this.props.navigation.navigate('Home') : () => this.props.navigation.navigate('Init')  } >
-              <Image style={styles.imageThumbnail} source={item.id==1 ? Icono : {uri: item.src} } />
-            </TouchableHighlight>
-            </View>
-          )}
-          //Setting the number of column
-          numColumns={2}
-          keyExtractor={(item, index) => index}
-        />
-      </View>
+      <ImageBackground source={Fondo} style={styles.imageBack}>
+        <View style={styles.MainContainer}>
+          <FlatList
+            data={this.state.dataSource}
+            renderItem={({ item }) => (
+              <View style={{ flex: 1 ,flexDirection: 'column', margin: 15, }}>
+              <TouchableHighlight onPress={item.id==0 ? () => this.props.navigation.navigate('Home') : () => this.props.navigation.navigate('Init')  } >
+                <Image style={styles.imageThumbnail} source={item.id==0 ? Icono : {uri: item.src} } />
+              </TouchableHighlight>
+              </View>
+            )}
+            //Setting the number of column
+            numColumns={2}
+            keyExtractor={(item, index) => index}
+          />
+        </View>
+      </ImageBackground>
     );
   }
 
@@ -64,7 +67,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     paddingTop: 30,
-    backgroundColor: '#1d1d1d',
   },
 
   imageThumbnail: {
@@ -72,4 +74,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 100,
   },
+  imageBack:{
+    
+    width : '100%',
+    height : '100%',
+  },
+  
 });
