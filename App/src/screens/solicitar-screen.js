@@ -1,13 +1,21 @@
 import React from 'react';
 import { ImageBackground,Button, View, Text,Dimensions,StyleSheet } from 'react-native';
-import Fondo from '../../assets/images/fondo.jpg'
+import Fondo from '../../assets/images/fondo3.jpg'
 const { width, height } = Dimensions.get('window');
 import Constants from 'expo-constants';
+/*
+Ventanta para reservar un espacio en el parqueo, el espacio se muestra en rojo en caso que
+no este disponible, en caso contrario en verde
+*/
 export default class SolicitarScreen extends React.Component {
   render() {
     return (
     <ImageBackground source={Fondo} style={styles.imageBack}>
-
+      <View style={styles.container}>
+        <Text style={styles.text}>
+          Por favor seleccione un parqueo a reservar
+        </Text>
+      </View>
       <View style={styles.parqueo1}>
         <Button 
           color={global.arrayCode[0] == '0' ?  '#009900' : '#cc0000' }
@@ -38,11 +46,7 @@ export default class SolicitarScreen extends React.Component {
         />
 
       </View>
-      <View style={styles.container}>
-        <Text style={styles.text}>
-          Por favor seleccione un parqueo a reservar
-        </Text>
-      </View>
+
        </ImageBackground>
     );
   }
@@ -65,43 +69,43 @@ const styles = StyleSheet.create({
   parqueo1: {
     alignItems: 'flex-end',
     position: 'absolute', 
-    marginLeft: 25,
-    marginTop: 40,
+    marginLeft: 30,
+    marginTop: 180,
   },
   parqueo2: {
     alignItems: 'flex-end',
     position: 'absolute', 
-    marginLeft: 102,
-    marginTop: 40,
+    marginLeft: 115,
+    marginTop: 180,
   },
   parqueo3: {
     alignItems: 'flex-end',
     position: 'absolute', 
-    marginLeft: 180,
-    marginTop: 40,
+    marginLeft: 200,
+    marginTop: 180,
   },
   parqueo4: {
     alignItems: 'flex-end',
     position: 'absolute', 
-    marginLeft: 265,
-    marginTop: 40,
+    marginLeft: 295,
+    marginTop: 180,
+
   },
     text: {
-    margin: 24,
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+    color:'white',
   },
   container: {
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    marginTop: 200,
+    
   },
   imageBack:{
     
-    width:  '95%',
-    height: '60%',
-    margin:18,
+    width:  '100%',
+    height: '100%',
   }
 
 });

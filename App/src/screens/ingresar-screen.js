@@ -1,8 +1,14 @@
 import React from 'react';
-import { TextInput,Button,Text, View, StyleSheet } from 'react-native';
+import { TextInput,Button,Text, View, StyleSheet,ImageBackground } from 'react-native';
 import Constants from 'expo-constants';
 import * as Constantes from '../constants/constants'
+import Fondo from '../../assets/images/fondo5.jpg'
 
+/*
+Ventana donde el usuario ingresa la contraseña generada, en la ventana codigo-screen, 
+una vez reservada, validando la contraseña, procede a realizar las acciones de la
+ventana parquear-screen
+*/
 export default class IngresarScreen extends React.Component {
   
     constructor(props) {
@@ -12,22 +18,24 @@ export default class IngresarScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.paragraph}>
-         Ingresar contraseña
-        </Text>
-        <TextInput style={styles.password}
-          placeholder="Contraseña"
-          onChangeText={(text) => this.setState({text})}
-          value={this.state.text}
-        />
-        <Button
-            color='#ffcc00'
-            onPress={() => this._onPressButton(this.state.text)}
-            title="Administrar Espacio"
+      <ImageBackground source={Fondo} style={styles.imageBack}>
+        <View style={styles.container}>
+          <Text style={styles.paragraph}>
+          Ingresar contraseña
+          </Text>
+          <TextInput style={styles.password}
+            placeholder="CONTRASEÑA"
+            onChangeText={(text) => this.setState({text})}
+            value={this.state.text}
           />
-          
-      </View>
+          <Button
+              color='#808080'
+              onPress={() => this._onPressButton(this.state.text)}
+              title="Administrar Espacio"
+            />
+            
+        </View>
+      </ImageBackground>
     );
     }
 
@@ -48,7 +56,7 @@ export default class IngresarScreen extends React.Component {
         this.props.navigation.navigate('Parquear')
       }
       else{
-        alert('Codigo no existente')
+        alert('Contraseña invalida')
       }    
     
     }
@@ -67,13 +75,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: 'white',
   },
   password:{
-    height: 40,
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: 18,
     margin: 24,
     textAlign: 'center',
     backgroundColor: '#ecf0f1',
+  },
+  imageBack:{
+    
+    width:  '100%',
+    height: '100%',
   },
 });

@@ -1,6 +1,10 @@
 import init from 'react_native_mqtt';
 import { AsyncStorage } from 'react-native';
 
+/*
+    Controla la conexion entre el servidor y la aplicación, envia y recibe los datos
+    desde la aplicación hacia el servidor.
+*/
 export default function MQTTClient() {
     init({
         size: 10000,
